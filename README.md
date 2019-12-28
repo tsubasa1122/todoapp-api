@@ -1,24 +1,13 @@
-# README
+## TodoアプリのAPI側
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## 環境
+```
+Ruby '2.6.5'
+Rails '6.0.2.1'
+```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## SetUp
+```
+$ git clone git@github.com:tsubasa1122/todoapp-api.git
+```
