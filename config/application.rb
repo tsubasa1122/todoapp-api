@@ -38,5 +38,6 @@ module TodoappApi
       g.test_framework false
     end
     config.api_only = true
+    config.action_controller.default_protect_from_forgery = true
   end
 end
