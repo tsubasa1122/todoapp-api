@@ -11,3 +11,4 @@ Rails '6.0.2.1'
 ```
 $ git clone git@github.com:tsubasa1122/todoapp-api.git
 ```
+今回は以下のようにスキーマ設計を行なった。
