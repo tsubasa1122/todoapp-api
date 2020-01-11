@@ -1,3 +1,4 @@
+json.set! :status, 200
 json.data @tasks do |task|
   json.title task.title
   json.content task.content
