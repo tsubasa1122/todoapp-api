@@ -9,7 +9,8 @@ class Api::TasksController < Api::ApplicationController
   end
 
   def create
-    task = current_user.tasks.new(task_params)
+    binding.pry
+    task = Task.new(task_params)
     if task.save
       render 'success'
     else
@@ -37,7 +38,7 @@ class Api::TasksController < Api::ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:user_id, :title, :content, :expires_at, :completion_flg, tags_attributes:[:id, :name])
+    params.require(:task).permit(:title, :content, :expires_at, :completion_flg, tags_attributes:[:id, :name]).merge(user_id: current_user.id)
   end
 
   def set_task
