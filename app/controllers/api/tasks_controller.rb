@@ -1,6 +1,8 @@
 class Api::TasksController < Api::ApplicationController
   before_action :set_task, only: %i[show edit update]
   
+  # before_action :authenticate_user!
+
   def index
     @tasks = Task.all
   end
@@ -9,7 +11,6 @@ class Api::TasksController < Api::ApplicationController
   end
 
   def create
-    binding.pry
     task = Task.new(task_params)
     if task.save
       render 'success'
@@ -38,7 +39,7 @@ class Api::TasksController < Api::ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :expires_at, :completion_flg, tags_attributes:[:id, :name]).merge(user_id: current_user.id)
+    params.require(:task).permit(:title, :content, :expires_at, :completion_flg, tags_attributes:[:id, :name]).merge(user_id: @current_user.id)
   end
 
   def set_task
