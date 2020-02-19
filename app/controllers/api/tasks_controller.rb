@@ -11,11 +11,13 @@ class Api::TasksController < Api::ApplicationController
   end
 
   def create
+    tag = Tag.find_or_create_by
     task = Task.new(task_params)
+    task.tag_tasks.build(tag_id: tag.id)
     if task.save
-      render 'success'
+      render 'api/success'
     else
-      render 'error'
+      render 'api/error'
     end
   end
 
@@ -24,22 +26,22 @@ class Api::TasksController < Api::ApplicationController
 
   def update
     if task.update(task_params)
-      render 'success'
+      render 'api/success'
     else
-      render 'error'
+      render 'api/error'
     end
   end
 
   def delete
     task = task.find(params[:id])
     task.destory
-    render 'success'
+    render 'api/success'
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :expires_at, :completion_flg, tags_attributes:[:id, :name]).merge(user_id: @current_user.id)
+    params.require(:task).permit(:title, :content, :expires_at, :completion_flg, tags_attributes:[:name]).merge(user_id: @current_user.id)
   end
 
   def set_task
