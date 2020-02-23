@@ -1,19 +1,17 @@
 class Api::TasksController < Api::ApplicationController
   before_action :set_task, only: %i[show edit update]
-  
-  # before_action :authenticate_user!
 
   def index
-    @tasks = Task.all
+    @tasks = Task.incomplete.where(user_id: current_user.id)
   end
 
   def show
   end
 
   def create
-    tag = Tag.find_or_create_by
+    tag = Tag.find_or_create_by(name: params[:tags_attributes][:name])
     task = Task.new(task_params)
-    task.tag_tasks.build(tag_id: tag.id)
+    task.task_tags.build(tag_id: tag.id)
     if task.save
       render 'api/success'
     else
@@ -32,9 +30,10 @@ class Api::TasksController < Api::ApplicationController
     end
   end
 
-  def delete
-    task = task.find(params[:id])
-    task.destory
+  def destroy
+    task = Task.find(params[:id])
+    task.completion_flg = true
+    task.save
     render 'api/success'
   end
 
